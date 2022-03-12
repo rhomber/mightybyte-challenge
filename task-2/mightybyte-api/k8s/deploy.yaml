@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mightybyte-api-prod
+  labels:
+    app: mightybyte-api-prod
+    build_id: "**REPLACE WITH BUILD ID**"
+  annotations:
+    kubernetes.io/change-cause: "**REPLACE WITH BUILD ID**"
+spec:
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: mightybyte-api-prod
+  strategy:
+    rollingUpdate:
+      maxUnavailable: "25%"
+      maxSurge: "25%"
+  template:
+    metadata:
+      labels:
+        app: mightybyte-api-prod
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: mightybyte-api-prod-app
+        image: "**REPLACE WITH IMAGE**"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: APP_ENV
+          value: "prod"
+        - name: K8S_BUILD_ID
+          value: "**REPLACE WITH BUILD ID**"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 3

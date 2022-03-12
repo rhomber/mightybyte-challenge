@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: mightybyte-api-prod-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "**REPLACE WITH IP NAME**"
+    networking.gke.io/managed-certificates: "mightybyte-api-prod-cert"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: mightybyte-api-prod
+          servicePort: 8080
+
