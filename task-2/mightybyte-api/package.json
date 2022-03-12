@@ -1,0 +1,11 @@
+{
+  "name": "mightybyte-api",
+  "version": "1.0.0",
+  "description": "MightyByte API",
+  "author": "David Radunz <david@vimtura.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
