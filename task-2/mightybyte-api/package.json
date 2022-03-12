@@ -5,6 +5,10 @@
   "author": "David Radunz <david@vimtura.com>",
   "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "//": "Dummy build to keep it simple.",
+    "build": "rm -rf build/ && mkdir build && cp src/* build/"
+  },
   "dependencies": {
     "express": "^4.17.3"
   }
